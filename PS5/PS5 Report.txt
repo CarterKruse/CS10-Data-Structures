@@ -1,0 +1,42 @@
+PS5 REPORT
+Carter Kruse & John DeForest, Dartmouth CS 10, Spring 2022
+
+TESTING (HARD-CODED GRAPHS)
+Incorrect Tagging
+The quick brown fox jumps over the lazy dog.
+[DET, ADJ, ADJ, N, N, P, DET, ADJ, N, .]
+
+My name is Carter Kruse.
+[DET, N, V, ., ., .]
+
+John walked the dog through the neighborhood.
+[PRO, VD, DET, N, P, DET, N, .]
+
+CS is an enjoyable course.
+[PRO, V, DET, ADJ, N, .]
+
+Correct Tagging
+The purpose of our lives is to be happy.
+[DET, N, P, PRO, N, V, TO, V, ADJ, .]
+
+Discussion: The Viterbi Algorithm, based on the Hidden Markov Model, is effective when the sentences being tagged are
+similar in structure and content to the training data. In this case, the training data is the Brown corpus, a rather
+comprehensive dataset that allows for relatively high accuracy in most cases.
+
+In the cases where incorrect tagging was identified, the tagging was typically only off by a single tag or two. For example,
+the sentence "John walked the dog through the neighborhood" was only tagged incorrectly with the "John" [PRO] tag, indicating
+that perhaps the training data is based on content closer to "I/You/We walked the dog through the neighborhood", which
+would have been correctly tagged. This convinced us of our code's correctness; most sentences were properly tagged.
+
+The Viterbi Algorithm (and HMM) further seems to encounter difficulties when using full names, such as "Carter Kruse",
+likely because the name Kruse may not appear in the training data.
+
+
+TRAINING/TESTING (PROVIDED DATASETS)
+When training and testing the two example cases provided in "texts.zip", the results were as expected. The solution got
+32 tags right and 5 wrong for simple, and 35109 right vs. 1285 wrong for brown, with an unseen-word penalty of -100.
+
+In general, the overall testing performance was as expected. Varying the unseen-word penalty changes the way the sentences
+are tagged, and thus changes the accuracy, depending on the sentence to tag. Lowering the unseen-word penalty will
+negatively impact performance when familiar words (words used in the training data) are observed, but may positively
+impact performance when new words are introduced.

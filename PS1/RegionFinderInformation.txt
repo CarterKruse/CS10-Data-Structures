@@ -1,0 +1,63 @@
+Region Finder Information
+
+Briefly describe the implementation and parameter choices you made and their impact on the detected regions.
+
+Quick Notes
+- The region growing algorithm implemented finds and holds regions in an image. Each region is a list of contiguous
+points with colors similar to the target color.
+- As we used Euclidean distance squared to determine if colors were close enough to the target color, we set the
+maxColorDiff to 1000, which is significantly different from what was provided.
+- The minimum number of points that must be in a region to be worth considering was set to 50.
+- The findRegions() method uses a flood-fill algorithm to determine the regions matching the given targetColor.
+- The flood-fill algorithm works, as we include neighboring points (four surrounding points) to the toVisit ArrayList
+each time we come across a pixel matching the given targetColor. These points are then checked to see if they are close
+enough to the targetColor.
+- The constrain function is used within findRegions() to ensure we do not add a point to the toVisit ArrayList
+that is not on the screen.
+- The colorMatch() method tests whether two colors are similar enough, using the maxColorDiff threshold.
+- The largestRegion() method returns the largest region detected, which will be used for the webcam processing.
+- The recolorImage() method sets recoloredImage to be a copy of image, but with each region a uniform random color,
+so we can see where they are. This is the method that is used to display the different regions in the webcam code.
+- The clearRegions() method removes every region from the list of regions, which proves useful when trying to ensure
+that the CamPaint program does not leave a trail when recoloring the webcam image, only when the painting is shown.
+
+
+Further Information
+To find uniformly-colored regions, we employ a "region growing" (aka "flood fill") algorithm. Region growing
+initializes a new region at some point that has approximately a specified target color. It then looks at each of the
+point's neighbors (of which there are four). Those that are also approximately the target color become members of the
+region, and their neighbors also need to be considered. The process continues until no neighbor-of-neighbor-of... points
+are the desired color. Thus, the "flood fill" name: we expand outward from an initial point, as if a bucket of paint
+had been spilled there and spread to all the pixels of its same color. That detects one region; start again from another
+point (not already considered) to detect another region.
+
+The target color is specified by mouse press, as in our simpler color point tracking example in class. The flood fill
+identifies connected regions of points that are approximately that target color. The paintbrush is the largest such region.
+
+The built-in Java Point class holds x and y coordinates. We can package up a list of them and think of it as a region.
+A list of these lists is then our set of regions. There are many ways we could test color similarity. In our solution,
+we used Euclidean distance with a given threshold.
+
+We need to keep track of which points we've visited, so that we don't revisit them. An additional image actually
+provides a convenient way to do that, as it's exactly the same structure of the one we're looking at. It starts off
+as all black (getRGB is 0), and we can change the color of an (x,y) position to something else when we visit it.
+Thus we don't keep going there again and again.
+
+visited = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+...
+if (visited.getRGB(x, y) == 0) {
+  ...
+   visited.setRGB(x, y, 1);
+}
+
+Consider 4-adjacency (N, E, S, W) neighbors using nested loops as in some of our image processing code.
+We also need to keep track of the neighbors (and neighbors of neighbors...) that need to be visited in the region
+we are growing. An ArrayList can do that; initialize it with the point itself. Then in the loop, remove the first point
+from the list, and handle it by adding its neighbors to the list (if they are the target color). Two other classes
+that we'll use more extensively soon have the same ability: Stack lets us push and pop objects, while Queue lets us
+enqueue and dequeue. Any of these approaches is fine.
+
+Note the difference in verbs: toVisit holds the pixels we still need to check for inclusion in the current region,
+while visited marks the places we've already been, so we don't go back to them.
+
+There's a nested loop structure for recoloring: loop over all the regions; for each, loop over all the points.

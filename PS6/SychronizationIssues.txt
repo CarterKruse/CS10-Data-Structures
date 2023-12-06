@@ -1,0 +1,14 @@
+Synchronization Issues
+Carter Kruse & John DeForest, Dartmouth CS 10, Spring 2022
+
+With multiple clients, various unexpected behaviors are possible. The addition, movement, recoloring, or deletion of
+shapes may not be consistent across multiple editors if we do not account for handling multiple threads that are
+accessing shared resources at the same time. In this case, the shared resource is the IDMap, with the IDs of shapes
+and the shapes themselves to be displayed on each editor.
+
+Prior to making our program "atomic" with the synchronized keyword, we encountered instances of this happening,
+particularly with the deletion of objects. Now that we synchronized the handleAdd(), handleMove(), handleRecolor(),
+handleDelete(), handleAddID() methods (and addShape(), moveShape(), recolorShape(), deleteShape(), drawSketch()), we
+no longer see issues with the code.
+
+In theory, this should handle the issues encountered with multithreading. :)

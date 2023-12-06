@@ -1,0 +1,33 @@
+Discussion Of Tests
+Carter Kruse & John Deforest
+
+CollisionGUIExtra
+- We extended CollisionGUI to handle an additional blob type, namely ResoluteWanderer.
+- The keystroke 'p' was mapped to creating a new blob of this type.
+
+GeometryExtra
+- We extended the Geometry class to include implementation of a pointInRectangle method that would be used for
+findInRectangle in PointQuadtreeExtra.
+- The boolean pointInRectangle method returns whether a point is within a rectangle, given the point x coordinate, point
+y coordinate, top left x coordinate of the rectangle, top left y coordinate of the rectangle, bottom right x coordinate
+of the rectangle, and bottom right y coordinate of the rectangle.
+
+PointQuadtreeExtra
+- We implemented a findInRectangle method that uses the quadtree to find all points within the rectangle.
+- The parameters are the top left x coordinate of rectangle, top left y coordinate of rectangle, bottom right x
+coordinate of rectangle, and bottom right y coordinate of rectangle.
+- Similar to the findInCircle method, the findInRectangle method relies on a recursive helper method to accumulate all
+the points.
+- The accumulator method addPointsInRectangle adds all points in the rectangle to a list, recursively.
+- The parameters are the list of points to consider when adding points to the list, top left x coordinate of rectangle, top left y
+coordinate of rectangle, bottom right x coordinate of rectangle and bottom right y coordinate of rectangle.
+- As indicated, the method is recursive, meaning that the method is called for the children of each node.
+
+DotTreeGUIExtra
+- We implemented a query function that uses the 'rectangle' mode, as opposed to the 'circle' mode for finding the points
+near the mouse. This 'rectangle' mode is associated with the keystroke 'k', which shows up in handleMouseMotion,
+handleKeyPress, and handleMousePress.
+- Within the handleMousePress method, the findInRectangle method from PointQuadtreeExtra is implemented as appropriate.
+- Further, the draw method is modified to reflect the inclusion of a query function that involves a rectangle, rather
+than a circle. This draw method is responsible for displaying the rectangle at the mouse location, along with changing
+the color of identified points (near the mouse) to black. (See Corresponding Image)

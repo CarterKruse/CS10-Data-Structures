@@ -1,0 +1,12 @@
+Extra Credit Information
+
+You may obtain extra credit for extending and enhancing the app. Only do this once you are completely finished with the
+specified version. Make a different file for the extra credit version, and document what you did and how it works.
+
+Quick Notes
+- In our extra credit version, we implemented a method (using a keystroke) to pause/restart the painting. The spacebar
+seemed like the logical choice, so that's what we went with.
+- In our testing, the pause/restart method worked perfectly. An example can be seen in the "painting extra.png" and
+"recolored extra.png".
+- Further, we decided to use a keystroke to allow for the changing of the monochromatic painting color. Every press of
+the key "l" results in a new random color for the paintbrush, which allows for fun designs, as shown. :)

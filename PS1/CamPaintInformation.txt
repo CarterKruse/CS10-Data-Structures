@@ -1,0 +1,34 @@
+Cam Paint Information
+
+Briefly describe the utility and limitations of region growing in this context.
+
+Quick Notes
+- As it currently is, the region growing (via the flood-fill algorithm) is relatively fast, in that it is able to update
+around 30 frames per second, so that the webcam recoloring does not appear to be delayed.
+- This being said, there may be a more efficient way to implement the flood-fill algorithm. Our first attempt involved
+recursion, which was extremely slow, yet we found a more efficient way to complete the flood-fill.
+- The region finding and recoloring works well in good lighting with contrast between different colors. When the lighting
+is not ideal, however, the region finding is less effective, as the color matching calculation becomes less accurate.
+- As it is implemented, the selected color for matching a given region is not limited to an object; the algorithm picks
+up all pixels for a given color with the flood-fill. This results in disconnected regions, which may not be the objective.
+- To further clarify the above point, the region finding and recoloring algorithm picks up all pixels of similar color
+in a given frame of the webcam video feed. This is what was expected for this assignment, though it could be potentially
+an issue if the goal is not to identify multiple objects or artifacts in addition to the target object.
+
+
+Further Information
+The basic idea is that the region finder gives regions for each frame of the camera, the largest of which is
+considered the paintbrush. The paintbrush leaves a trail over time as it moves around. That's the painting.
+
+The basic structure is like other webcam code. There are some instance variables and key commands to set the tracking
+color, save snapshots, and control which image is being shown (in the draw method). Here, live webcam is just the
+streaming video with no processing; recolored image is from region finder (as in the static version and the example
+regions at the top); and the painting is the tracks left by the paintbrush over time.
+
+We plug in calls to our region finder within processImage, in order to find the largest region.
+
+Once the region finder gives the location of the brush (the largest region), we update the painting accordingly.
+That is, the pixels that are in the largest region are  colored in the painting, thereby leaving a trail. The solution
+we used was monochromatic.
+
+We handle the mouse press to set the tracking color, and the draw method to display the appropriate image.

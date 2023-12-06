@@ -1,0 +1,3 @@
+In the "Comments" field give the compressed size of WarAndPeace.txt, but do not include the output.
+
+Compressed Size of WarAndPeace.txt: 1.8MB

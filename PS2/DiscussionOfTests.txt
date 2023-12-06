@@ -1,0 +1,19 @@
+Discussion Of Tests
+Carter Kruse & John Deforest
+
+CollisionGUI Test
+- We added a new method to CollisionGUI.java called collisionDetectionTest() that creates two pairs of blobs of type 'b'
+(Bouncer).
+- One of these pairs was set such that they would start with offset x and y positions and velocities to
+"collide"/overlap one another. The other pair was set so that they would just "miss" each other and not overlap.
+- The colliding pair was expected to change color, while the non-colliding pair was expected to NOT change
+color. Both of these cases were confirmed through our testing.
+- To call the testing method, we used a keypress 't', which was bound in the handleKeyPress method (which already existed).
+
+DotTreeGUI Test
+- We added a test case, which is triggered by the keypress '2', which implements the testFind method previously provided.
+- The test2 method codifies a couple of our test cases, by creating a tree and doing some searches on the tree.
+- After a few iterations, when we compared the expected values to the actual results, we found that our test code
+worked perfectly!
+- The test evaluates how many times Geometry.circleIntersectsRectangle is expected to be called, how many times
+Geometry.pointInCircle is expected to be called, and how many points are expected to be found.
